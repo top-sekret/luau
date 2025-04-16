@@ -6,6 +6,7 @@
 #include "Luau/StringUtils.h"
 
 #include <string>
+#include <utility>
 
 namespace Luau
 {
@@ -119,10 +120,16 @@ public:
         return (dumpFlags & Dump_Remarks) != 0;
     }
 
-    const std::string& getBytecode() const
+    const std::string& getBytecode() const &
     {
         LUAU_ASSERT(!bytecode.empty()); // did you forget to call finalize?
         return bytecode;
+    }
+
+    std::string getBytecode() &&
+    {
+        LUAU_ASSERT(!bytecode.empty()); // did you forget to call finalize?
+        return std::move(bytecode);
     }
 
     std::string dumpFunction(uint32_t id) const;
