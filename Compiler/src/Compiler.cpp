@@ -62,6 +62,16 @@ const Location& CompileError::getLocation() const
     return location;
 }
 
+const std::string& CompileError::getMessage() const &
+{
+    return message;
+}
+
+std::string&& CompileError::getMessage() &&
+{
+    return std::move(message);
+}
+
 // NOINLINE is used to limit the stack cost of this function due to std::string object / exception plumbing
 LUAU_NOINLINE void CompileError::raise(const Location& location, const char* format, ...)
 {
