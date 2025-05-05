@@ -20,7 +20,8 @@ public:
     const char* what() const throw() override;
 
     const Location& getLocation() const;
-    const std::string& getMessage() const;
+    const std::string& getMessage() const &;
+    std::string&& getMessage() &&;
 
     static LUAU_NORETURN void raise(const Location& location, const char* format, ...) LUAU_PRINTF_ATTR(2, 3);
 
@@ -36,7 +37,8 @@ public:
 
     const char* what() const throw() override;
 
-    const std::vector<ParseError>& getErrors() const;
+    const std::vector<ParseError>& getErrors() const &;
+    std::vector<ParseError>&& getErrors() &&;
 
 private:
     std::vector<ParseError> errors;
