@@ -5,6 +5,7 @@
 #include "Luau/TimeTrace.h"
 
 #include <algorithm>
+#include <utility>
 
 #include <errno.h>
 #include <limits.h>
@@ -105,9 +106,14 @@ const Location& ParseError::getLocation() const
     return location;
 }
 
-const std::string& ParseError::getMessage() const
+const std::string& ParseError::getMessage() const &
 {
     return message;
+}
+
+std::string&& ParseError::getMessage() &&
+{
+    return std::move(message);
 }
 
 // LUAU_NOINLINE is used to limit the stack cost of this function due to std::string object / exception plumbing
@@ -137,9 +143,14 @@ const char* ParseErrors::what() const throw()
     return message.c_str();
 }
 
-const std::vector<ParseError>& ParseErrors::getErrors() const
+const std::vector<ParseError>& ParseErrors::getErrors() const &
 {
     return errors;
+}
+
+std::vector<ParseError>&& ParseErrors::getErrors() &&
+{
+    return std::move(errors);
 }
 
 template<typename T>
