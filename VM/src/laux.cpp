@@ -1,5 +1,6 @@
 // This file is part of the Luau programming language and is licensed under MIT License; see LICENSE.txt for details
 // This code is based on Lua 5.x implementation licensed under MIT License; see lua_LICENSE.txt for details
+#include "luaextra.h"
 #include "lualib.h"
 
 #include "lobject.h"
@@ -31,6 +32,11 @@ static const char* currfuncname(lua_State* L)
         return L->namecall ? getstr(L->namecall) : NULL;
     else
         return debugname;
+}
+
+const char* luaX_currfuncname(lua_State* L)
+{
+    return currfuncname(L);
 }
 
 l_noret luaL_argerrorL(lua_State* L, int narg, const char* extramsg)
