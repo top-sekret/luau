@@ -53,7 +53,7 @@
 #define LUALIB_API LUA_API
 
 // Can be used to reconfigure visibility for internal APIs
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined (LUAI_NO_HIDDEN)
 #define LUAI_FUNC __attribute__((visibility("hidden"))) extern
 #define LUAI_DATA LUAI_FUNC
 #else
